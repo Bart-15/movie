@@ -41,7 +41,7 @@ const Movies = () => {
                 <MoviesRow>
                     {
                         popularMovies.map((movie) => {
-                            return (<MovieCards movie={movie} />)
+                            return (<MovieCards movie={movie} key={movie.id} />)
                         })
                     }
                 </MoviesRow>

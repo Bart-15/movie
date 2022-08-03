@@ -3,6 +3,7 @@ import Layout from './components/Layout/Layout';
 import Home from './pages/Homepage/Home';
 import Movies from './pages/Movies/Movies';
 import TvShows from './pages/TvShows/TvShows';
+import MovieItem from './components/MovieItem/MovieItem';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/movies" element={<Movies />} />
 						<Route path="/tv-shows" element={<TvShows />} />
+						<Route path="/movie-item/:id" element={<MovieItem />} />
 					</Route>
 				</Routes>
 			</Router>
