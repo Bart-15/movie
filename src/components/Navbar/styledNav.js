@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 
 export const Nav = styled.div`
@@ -37,10 +37,13 @@ export const MenuContainer = styled.div`
     @media(max-width: 768px) {
         display:none;
     }
-`
 
-export const MenuLinks = styled(Link)`
-    transition:.3s ease-in-out;
+    & .active {
+        border-bottom:2px solid #85bd64;
+    }
+    `
+
+export const MenuLinks = styled(NavLink)`
     background:transparent;
     color:#5a5c5c;
     margin:0 15px 0;
@@ -49,8 +52,10 @@ export const MenuLinks = styled(Link)`
     text-decoration:none;
     border: none;
     cursor:pointer;
-
+    
+    
     &:hover {
+        transition:.3s ease-in-out;
         color:#333;
     }
 
@@ -59,7 +64,7 @@ export const MenuLinks = styled(Link)`
 export const SearchBar = styled.input`
     margin: 0 20px 0;
     padding:10px;
-    transition:.3s ease-in-out;
+    transition:.3s ;
     width:150px;
     background:#dadee0;
     border-radius:50px;

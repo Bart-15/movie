@@ -42,7 +42,7 @@ const TvShows = () => {
             <TvShowsRow>
                 {
                     popularTvShows.map((show) => {
-                        return (<TvShowCards show={show} />)
+                        return (<TvShowCards show={show} key={show.id}/>)
                     })
                 }
             </TvShowsRow>

@@ -13,7 +13,7 @@ const TvShowCards = ({show}) => {
         <Card>
             <ImgCard src={imgUrl} />
             <CardContent>
-                <CardTitle>{show.name}</CardTitle>
+                <CardTitle to={`/tv-show/${show.id}`}>{show.name}</CardTitle>
                 <CardDesc>
                     {show.overview.substring(0, 120) }...
                 </CardDesc>

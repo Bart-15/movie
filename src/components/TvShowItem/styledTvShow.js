@@ -28,6 +28,8 @@ export const SectionCol1 = styled.div`
 
 `
 export const SectionCol2 = styled.div`
+    display:flex;
+    flex-direction: column;
     @media screen and (min-width: 768px){
         padding:20px 0;
     }
@@ -89,6 +91,7 @@ export const Button = styled.button`
     transition:.3s ease-in-out;
     cursor:pointer;
     border:none;
+    width:100px;
 
     &:hover{
         color:#f78b31;
@@ -96,6 +99,7 @@ export const Button = styled.button`
     @media screen and (min-width: 768px){
         font-size:14px;
         padding:5px 10px;
+        width:120px;
     }
 
     @media screen and (min-width: 1000px){
@@ -151,6 +155,20 @@ export const Iframe = styled.iframe`
     @media screen and (min-width: 1200px){
         width:1000px;
     }
+`
+
+export const SmallText = styled.span`
+    padding:5px 0;
+    @media screen and (min-width: 768px){
+        font-size:14px;
+    }
+
+`
+
+export const SmallTextContainer = styled.div`
+    display:flex;
+    justify-content:space-between;
+    flex-direction:column;
 `
 
 export const SliderContainer = styled.div`

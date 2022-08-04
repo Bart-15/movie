@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import {Link} from 'react-router-dom';
 export const Card = styled.div`
     width: 100%;
     background: #fff;
@@ -33,10 +33,16 @@ export const ImgCard = styled.img`
 export const CardContent = styled.div`
 `
 
-export const CardTitle = styled.h2`
+export const CardTitle = styled(Link)`
     font-size:20px;
     cursor:pointer;
     color:#333;
+    text-decoration:none;
+    font-weight:bold;
+
+    &:hover {
+        color:#111;
+    }
 
     @media screen and (min-width: 768px){
         font-size:18px;

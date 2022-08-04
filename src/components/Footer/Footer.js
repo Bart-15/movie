@@ -1,8 +1,13 @@
+import {
+    FooterContainer,
+    Text
+} from './styledFooter';
+
 const Footer = () => {
     return ( 
-        <div>
-            Footer
-        </div>
+        <FooterContainer>
+            <Text>All Rights Reserved. Bart Tabusao {new Date().getFullYear()}</Text>
+        </FooterContainer>
     );
 }
 
