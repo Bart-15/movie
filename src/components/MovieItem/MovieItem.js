@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
+import noImg from '../../assets/img/2922280_27002.jpg'
 import {
     Container,
     Section,
@@ -22,12 +23,14 @@ import {
 } from './styledMovieItem';
 import SliderImage from '../../components/Slider/SliderImage';
 import Loading from '../../components/Loading/Loading';
+import * as api from '../../api/movie';
+
 const MovieItem = () => {
     const {id} = useParams();
 
     const [movie, setMovie] = useState({});
     const [similarMovies, setSimilarMovies] = useState([]);
-
+    
     const imgUrl = `https://image.tmdb.org/t/p/w500${movie?.poster_path}`;
 
     const [openModal, setOpenModal] = useState(false);
@@ -40,20 +43,22 @@ const MovieItem = () => {
         const controller = new AbortController();
 
         const fetchAll = async () => {
-            let apiKey = "54931a9461e6d4827987b707a2b44d61"
-
             try {
                 const init = await axios.all([
-                    await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US&append_to_response=videos`, {signal:controller.signal}),
-                    await axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${apiKey}&language=en-US&page=1`, {signal:controller.signal})
+                    await api.movieById(
+                        id,
+                        controller.signal
+                    ),
+                    await api.similarMovies(
+                        id,
+                        controller.signal
+                    )
                 ])  
-
                 if(isMounted) {
                     setMovie(init[0].data);
                     setSimilarMovies(init[1].data.results);
                     setLoading(false)
                 }
-
             }catch (e) {
                 if(e?.response) {
                     console.log(e);
@@ -67,6 +72,7 @@ const MovieItem = () => {
             isMounted = false;
             controller.abort();
         }
+        
     }, [id]);
 
         
@@ -98,14 +104,14 @@ const MovieItem = () => {
     if(isLoading) {
         return (<Loading />)
     }
+    
 
-    console.log(movie)
     return ( 
         <Container>
             <Section>
                 <SectionCol1>
                 <HomeLink href={`${movie.homepage}`} target="_blank">
-                    <MovieImg src={imgUrl} loading="lazy" alt={movie.title}/>
+                    <MovieImg src={movie?.poster_path ? imgUrl : noImg} loading="lazy" alt={movie.title}/>
                 </HomeLink>
                 </SectionCol1>
                 <SectionCol2>
@@ -120,10 +126,12 @@ const MovieItem = () => {
                     {movie?.videos?.results.length > 0 && ( <Button onClick={() => setOpenModal(true)}>Watch Trailer</Button> )}
                 </SectionCol2>
             </Section>
-            <SliderContainer>
-                <SliderTitle>Similar Movies</SliderTitle>
-                <SliderImage data={similarMovies} />
-            </SliderContainer>
+            {similarMovies.length ? (
+                <SliderContainer>
+                    <SliderTitle>Similar Movies</SliderTitle>
+                    <SliderImage data={similarMovies} />
+                </SliderContainer>
+            ) : "" }
             {/* Modal */}
             <ModalComponent />
         </Container>

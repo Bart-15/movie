@@ -1,30 +1,39 @@
 import {useEffect, useState} from 'react';
+import * as api from '../../api/movie';
 import MovieCards from '../../components/MovieCards/MovieCards';
+import useTitle from '../../hooks/useTitle';
+import Loading from '../../components/Loading/Loading';
 import {
     MoviesContainer,
     Title,
     MoviesRow
 } from './styledMovies';
-import * as api from '../../api/movie';
 
 const Movies = () => {
+    useTitle('Movie App - Movies');
+
     const [popularMovies, setPopularMovies] = useState([]);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
+        setLoading(true)
 
         const getPopularMovies = async () => {
             try {
                 const res = await api.getPopular({signal:controller.signal});
-                isMounted && setPopularMovies(res?.data?.results)
+                if(isMounted) {
+                    setPopularMovies(res?.data?.results) 
+                    setLoading(false);
+                }
+                
             } catch(e) {
                 if(e?.response){
                     console.log(e)
                 }
             }
         }
-
 
         getPopularMovies();
 
@@ -34,6 +43,9 @@ const Movies = () => {
         }
     }, [])
 
+    if(isLoading) {
+        return (<Loading />)
+    }
 
     return ( 
         <MoviesContainer>

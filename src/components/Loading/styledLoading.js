@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SpinnerContainer = styled.div`
-    z-index: auto;
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;

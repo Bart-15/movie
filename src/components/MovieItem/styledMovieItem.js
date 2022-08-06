@@ -105,7 +105,7 @@ export const Button = styled.button`
 
 export const  Modal = styled.div`
     display: ${props => props.open ? "block" : "none"};
-    z-index: auto;
+    z-index: 15;
     position: fixed;
     top: 0;
     left: 0;

@@ -1,15 +1,19 @@
 import {useEffect, useState} from 'react';
+import * as api from '../../api/movie';
+import useTitle from '../../hooks/useTitle';
+import TvShowCards from '../../components/TvShowCards/TvShowCards';
+import Loading from '../../components/Loading/Loading';
 import {
     TvShowsContainer,
     TvShowsRow,
     Title
 } from './styledTvShows';
-import TvShowCards from '../../components/TvShowCards/TvShowCards';
-import * as api from '../../api/movie';
-
 
 const TvShows = () => {
+    useTitle('Movie App - Tv Shows')
+
     const [popularTvShows, setPopularTvShows] = useState([]);
+    const [isLoading, setLoading] = useState(false);
     
     useEffect(() => {
         let isMounted = true;
@@ -18,14 +22,16 @@ const TvShows = () => {
         const getPopularTvShows= async () => {
             try {
                 const res = await api.getTvShow({signal:controller.signal});
-                isMounted && setPopularTvShows(res?.data?.results)
+                if(isMounted) {
+                    setPopularTvShows(res?.data?.results)
+                    setLoading(false);
+                }
             } catch(e) {
                 if(e?.response){
                     console.log(e)
                 }
             }
         }
-
 
         getPopularTvShows();
 
@@ -35,6 +41,9 @@ const TvShows = () => {
         }
     }, [])
 
+    if(isLoading) {
+        return (<Loading />)
+    }
 
     return ( 
         <TvShowsContainer>

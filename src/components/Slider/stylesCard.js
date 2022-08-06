@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 export const Card = styled.div`
     /* padding:10px; */
     border:5px solid #fff;
-
 `
 
 export const CardContent = styled.div`

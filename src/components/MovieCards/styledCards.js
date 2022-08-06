@@ -52,15 +52,12 @@ export const CardTitle = styled(Link)`
     @media screen and (min-width: 1000px){
         font-size:16px;
     }
-
 `
 
 export const CardDesc = styled.p`
     font-size:12px;
     color:#676b6d;
     padding:10px 0;
-
-    
 
     @media screen and (min-width: 1000px){
         font-size:14px;

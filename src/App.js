@@ -6,7 +6,6 @@ import TvShows from './pages/TvShows/TvShows';
 import MovieItem from './components/MovieItem/MovieItem';
 import TvShowItem from './components/TvShowItem/TvShowItem';
 
-
 function App() {
 	return (
 		<main>

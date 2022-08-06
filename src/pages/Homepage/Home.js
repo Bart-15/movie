@@ -7,7 +7,11 @@ import {
 } from './styledHome';
 import Loading from '../../components/Loading/Loading';
 import axios from 'axios';
+import useTitle from '../../hooks/useTitle';
+import * as api from '../../api/movie';
+
 const Home = () => {
+    useTitle("Movie App - Home")
 
     const [isData1, setData1] = useState([]);
     const [isData2, setData2] = useState([]);
@@ -20,13 +24,11 @@ const Home = () => {
         setLoading(true);
 
         const fetchAll = async () => {
-            let apiKey = "54931a9461e6d4827987b707a2b44d61"
-
             try {
                 const init = await axios.all([
-                    await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&page=1`, {signal:controller.signal}),
-                    await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`, {signal:controller.signal}),
-                    await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`, {signal:controller.signal})
+                    await api.upComing({signal:controller.signal}),
+                    await api.topRated({signal:controller.signal}),
+                    await api.nowPlaying({signal:controller.signal}),
                 ])
 
                 if(isMounted) {

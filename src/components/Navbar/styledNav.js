@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 
 
 export const Nav = styled.div`
@@ -70,7 +70,7 @@ export const SearchBar = styled.input`
     border-radius:50px;
     border:0;
     outline:0;
-    color:#5a5c5c;
+    color:#5a5c5c; 
 
     &:focus {
         width:230px;
@@ -84,4 +84,59 @@ export const HamburgerIcon = styled.div`
     @media(max-width: 768px) {
         display:block;
     }
+`
+
+export const DropdownContainer = styled.div`
+    max-width:1200px;
+    margin:3px auto 0 auto;
+    position:relative;
+    z-index:1;
+    `
+
+export const DropDown = styled.div`
+    transition:.4s ease-in-out;
+    display:none;
+    background:#333;
+    width:200px;
+    overflow:auto;
+    position:absolute;
+    top:-23px;
+    right: 32px;
+    opacity:0;
+    border-radius:5px;
+    
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #f78b31; 
+        border-radius: 10px;
+    }
+
+    @media screen and (min-width: 768px) {
+        display: ${ props => (props.results.length > 0 || props.noData ) ? 'block' : 'none' };
+        opacity: ${ props => ( props.focus ) ? "100%" : "0" };
+        height: ${ props => props.noData ? "40px" : "200px"}
+    }
+`
+
+export const ListContainer = styled.ul`
+    padding:0 10px;    
+    > * {
+        &:last-child {
+            border-bottom:none;
+        }
+    }
+`
+export const ListItem = styled.li`
+    padding:5px 0;
+    border-bottom:1px solid #f78b31;
+    color:#fff;
+    list-style-type: none;
+    cursor:pointer;
+`
+export const Text = styled.p`
+    color:#fff;
+    padding:10px;
 `

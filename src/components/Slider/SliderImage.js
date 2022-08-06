@@ -9,7 +9,6 @@ import {
     Title
 } from './stylesCard';
 const SliderImage = ({data}) => {
-
     return ( 
         <Slider {...settings}>
             {

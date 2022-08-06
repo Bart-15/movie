@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
+import noImg from '../../assets/img/2922280_27002.jpg'
 import {
     Container,
     Section,
@@ -24,7 +25,7 @@ import {
 } from './styledTvShow';
 import SliderImage from '../../components/Slider/SliderImage';
 import Loading from '../../components/Loading/Loading';
-
+import * as api from '../../api/movie';
 
 const TvShowItem = () => {
     const {id} = useParams();
@@ -45,12 +46,16 @@ const TvShowItem = () => {
         const controller = new AbortController();
 
         const fetchMovie = async () => {
-            let apiKey = "54931a9461e6d4827987b707a2b44d61"
             try {
                 const init = await axios.all([
-                    await axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=54931a9461e6d4827987b707a2b44d61&language=en-US&append_to_response=videos`, {signal:controller.signal}),
-                    await axios.get(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=${apiKey}&language=en-US&page=1`, {signal:controller.signal})
-
+                    await api.tvShowById(
+                        id,
+                        controller.signal
+                    ),
+                    await api.similarTvShows(
+                        id,
+                        controller.signal
+                    )
                 ])
 
                 if(isMounted) {
@@ -74,7 +79,11 @@ const TvShowItem = () => {
         }
     }, [id]);
 
-    
+
+    /**
+     * This is a custom modal component for youtube player
+     * 
+     */
     const ModalComponent = () => {
         const [video, setVideo] = useState("");
 
@@ -103,13 +112,12 @@ const TvShowItem = () => {
         return (<Loading />)
     }
 
-    console.log(tvShow)
     return ( 
         <Container>
             <Section>
                 <SectionCol1>
                     <HomeLink href={`${tvShow.homepage}`} target="_blank"> 
-                        <MovieImg src={imgUrl} loading="lazy" alt={tvShow.name}/>
+                        <MovieImg src={tvShow?.poster_path ? imgUrl : noImg} loading="lazy" alt={tvShow.name}/>
                     </HomeLink>
                 </SectionCol1>
                 <SectionCol2>
@@ -132,7 +140,6 @@ const TvShowItem = () => {
                 <SliderTitle>Similar Tv Shows</SliderTitle>
                 <SliderImage data={similarShows} />
             </SliderContainer>
-            {/* Modal */}
             <ModalComponent />
         </Container>
     );
